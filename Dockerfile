@@ -1,4 +1,4 @@
-FROM dockerfile/ubuntu
+FROM ubuntu:latest
 
 MAINTAINER mcsaky <mihai.csaky@sysop-consulting.ro>
 
