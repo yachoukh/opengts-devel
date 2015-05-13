@@ -9,7 +9,7 @@ ENV TOMCAT_VERSION 7.0.54
 ENV JAVA_HOME /usr/local/java
 ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-6-oracle/
 
-RUN apt-get -y install mysql-connector-java  liblog4j1.2-java libgnumail-java ant curl unzip  sudo tar mysql-server software-properties-common
+RUN apt-get -y install   liblog4j1.2-java libgnumail-java ant curl unzip  sudo tar mysql-server software-properties-common
 
 
 
