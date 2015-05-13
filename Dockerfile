@@ -9,6 +9,9 @@ ENV TOMCAT_VERSION 7.0.54
 ENV JAVA_HOME /usr/local/java
 ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-6-oracle/
 
+RUN apt-get -y install libmysql-java  liblog4j1.2-java libgnumail-java ant curl unzip  sudo tar mysql-server software-properties-common python-software-properties
+
+
 RUN \
   echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
   echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
@@ -18,7 +21,6 @@ RUN \
 
 RUN ln -s $ORACLE_JAVA_HOME $JAVA_HOME
 
-RUN apt-get -y install libmysql-java  liblog4j1.2-java libgnumail-java ant curl unzip  sudo tar mysql-server
 
 RUN curl -L http://downloads.sourceforge.net/project/opengts/server-base/$GTS_VERSION/OpenGTS_$GTS_VERSION.zip -o /usr/local/OpenGTS_$GTS_VERSION.zip && \
     unzip /usr/local/OpenGTS_$GTS_VERSION.zip -d /usr/local && \
