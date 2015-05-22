@@ -2,6 +2,9 @@ FROM ubuntu:latest
 
 MAINTAINER mcsaky <mihai.csaky@sysop-consulting.ro>
 
+# Set the debconf frontend to Noninteractive
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+
 ENV GTS_HOME /usr/local/gts
 ENV CATALINA_HOME /usr/local/tomcat
 ENV GTS_VERSION 2.5.6
