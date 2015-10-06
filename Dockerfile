@@ -12,7 +12,7 @@ ENV TOMCAT_VERSION 8.0.27
 ENV JAVA_HOME /usr/local/java
 ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-6-oracle/
 
-RUN apt-get -y install  ant curl unzip  sudo tar mysql-server software-properties-common
+RUN apt-get -y install software-properties-common
 
 
 
@@ -25,6 +25,7 @@ RUN \
 
 RUN ln -s $ORACLE_JAVA_HOME $JAVA_HOME
 
+RUN apt-get -y install  ant curl unzip  sudo tar mysql-server software-properties-common
 
 RUN curl -L http://downloads.sourceforge.net/project/opengts/server-base/$GTS_VERSION/OpenGTS_$GTS_VERSION.zip -o /usr/local/OpenGTS_$GTS_VERSION.zip && \
     unzip /usr/local/OpenGTS_$GTS_VERSION.zip -d /usr/local && \
