@@ -59,4 +59,7 @@ RUN chmod 755 /usr/local/apache-tomcat-$TOMCAT_VERSION/bin/run.sh
 
 RUN rm -rf /usr/local/tomcat/webapps/examples /usr/local/tomcat/webapps/docs
 EXPOSE 8080
-CMD ["/usr/local/tomcat/bin/run.sh"]
+#CMD ["/usr/local/tomcat/bin/run.sh"]
+RUN C/usr/local/tomcat/bin/run.sh
+CMD /bin/bash
+
