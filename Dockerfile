@@ -12,7 +12,7 @@ ENV TOMCAT_VERSION 8.0.27
 ENV JAVA_HOME /usr/local/java
 ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-6-oracle/
 
-RUN apt-get -y install   liblog4j1.2-java libgnumail-java ant curl unzip  sudo tar mysql-server software-properties-common
+RUN apt-get -y install  ant curl unzip  sudo tar mysql-server software-properties-common
 
 
 
