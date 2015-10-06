@@ -51,7 +51,9 @@ RUN cp $GTS_HOME/jlib/*/*.jar $JAVA_HOME/jre/lib/ext/
 
 RUN cd $GTS_HOME; sed -i 's/\(mysql-connector-java\).*.jar/\1-5.1.31-bin.jar/' build.xml; \
     sed -i 's/\(<include name="mail.jar"\/>\)/\1\n\t<include name="javax.mail.jar"\/>/' build.xml; \
-    sed -i 's/"mail.jar"/"javax.mail.jar"/' src/org/opengts/tools/CheckInstall.java
+    sed -i 's/"mail.jar"/"javax.mail.jar"/' src/org/opengts/tools/CheckInstall.java \
+	sed -i 's/\/\/\*\*\/public/public/' /usr/local/OpenGTS_2.6.0/src/org/opengts/war/tools/BufferedHttpServletResponse.java
+	
 
 ADD run.sh /usr/local/apache-tomcat-$TOMCAT_VERSION/bin/
 RUN chmod 755 /usr/local/apache-tomcat-$TOMCAT_VERSION/bin/run.sh
@@ -59,7 +61,6 @@ RUN chmod 755 /usr/local/apache-tomcat-$TOMCAT_VERSION/bin/run.sh
 
 RUN rm -rf /usr/local/tomcat/webapps/examples /usr/local/tomcat/webapps/docs
 EXPOSE 8080
-#CMD ["/usr/local/tomcat/bin/run.sh"]
-
-CMD /bin/bash
+CMD ["/usr/local/tomcat/bin/run.sh"]
+#CMD /bin/bash
 
