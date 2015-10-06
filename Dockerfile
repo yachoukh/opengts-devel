@@ -7,8 +7,8 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 
 ENV GTS_HOME /usr/local/gts
 ENV CATALINA_HOME /usr/local/tomcat
-ENV GTS_VERSION 2.5.6
-ENV TOMCAT_VERSION 7.0.54
+ENV GTS_VERSION 2.6.0
+ENV TOMCAT_VERSION 8.0.27
 ENV JAVA_HOME /usr/local/java
 ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-6-oracle/
 
@@ -21,7 +21,7 @@ RUN \
   echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && \
   add-apt-repository -y ppa:webupd8team/java && \
   apt-get update && \
-  apt-get install -y oracle-java6-installer
+  apt-get install -y oracle-java8-installer
 
 RUN ln -s $ORACLE_JAVA_HOME $JAVA_HOME
 
@@ -30,7 +30,8 @@ RUN curl -L http://downloads.sourceforge.net/project/opengts/server-base/$GTS_VE
     unzip /usr/local/OpenGTS_$GTS_VERSION.zip -d /usr/local && \
     ln -s /usr/local/OpenGTS_$GTS_VERSION $GTS_HOME
 
-RUN curl -L http://archive.apache.org/dist/tomcat/tomcat-7/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz -o /usr/local/tomcat.tar.gz
+	# http://mirrors.hostingromania.ro/apache.org/tomcat/tomcat-8/v8.0.27/bin/apache-tomcat-8.0.27.tar.gz
+RUN curl -L http://archive.apache.org/dist/tomcat/tomcat-8/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz -o /usr/local/tomcat.tar.gz
 
 RUN  tar zxf /usr/local/tomcat.tar.gz -C /usr/local && rm /usr/local/tomcat.tar.gz && ln -s /usr/local/apache-tomcat-$TOMCAT_VERSION $CATALINA_HOME
 
