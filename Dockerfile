@@ -10,7 +10,7 @@ ENV CATALINA_HOME /usr/local/tomcat
 ENV GTS_VERSION 2.6.0
 ENV TOMCAT_VERSION 8.0.27
 ENV JAVA_HOME /usr/local/java
-ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-6-oracle/
+ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-8-oracle/
 
 RUN apt-get -y install software-properties-common
 
