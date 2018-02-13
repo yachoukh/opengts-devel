@@ -7,15 +7,16 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 
 ENV GTS_HOME /usr/local/gts
 ENV CATALINA_HOME /usr/local/tomcat
-ENV GTS_VERSION 2.6.0
-ENV TOMCAT_VERSION 8.0.27
+ENV GTS_VERSION 2.6.5
+ENV TOMCAT_VERSION 8.5.27
 ENV JAVA_HOME /usr/local/java
 ENV ORACLE_JAVA_HOME /usr/lib/jvm/java-8-oracle/
 
 VOLUME /usr/local/gtsconfig
 
 
-RUN apt-get -y install software-properties-common
+RUN apt-get update
+RUN apt-get install -y software-properties-common
 
 
 
@@ -44,17 +45,18 @@ RUN  tar zxf /usr/local/tomcat.tar.gz -C /usr/local && rm /usr/local/tomcat.tar.
 ADD tomcat-users.xml /usr/local/apache-tomcat-$TOMCAT_VERSION/conf/
 
 #put java.mail in place
-RUN curl -L http://java.net/projects/javamail/downloads/download/javax.mail.jar -o /usr/local/OpenGTS_$GTS_VERSION/jlib/javamail/javax.mail.jar
+RUN curl -L https://github.com/javaee/javamail/releases/download/JAVAMAIL-1_6_1/javax.mail.jar -o $ORACLE_JAVA_HOME/jre/lib/ext/javax.mail.jar
 
 # put mysql.java in place
-RUN curl -L http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.31.tar.gz  -o /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.31.tar.gz && \
-     tar xvf /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.31.tar.gz mysql-connector-java-5.1.31/mysql-connector-java-5.1.31-bin.jar -O > /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.31-bin.jar && \
-     rm -f /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.31.tar.gz
+# https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.45.tar.gz
+RUN curl -L http://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.45.tar.gz  -o /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.45.tar.gz && \
+     tar xvf /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.45.tar.gz mysql-connector-java-5.1.45/mysql-connector-java-5.1.45-bin.jar -O > /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.45-bin.jar && \
+     rm -f /usr/local/OpenGTS_$GTS_VERSION/jlib/jdbc.mysql/mysql-connector-java-5.1.45.tar.gz
 
 RUN cp $GTS_HOME/jlib/*/*.jar $CATALINA_HOME/lib
 RUN cp $GTS_HOME/jlib/*/*.jar $JAVA_HOME/jre/lib/ext/
 
-RUN cd $GTS_HOME; sed -i 's/\(mysql-connector-java\).*.jar/\1-5.1.31-bin.jar/' build.xml; \
+RUN cd $GTS_HOME; sed -i 's/\(mysql-connector-java\).*.jar/\1-5.1.45-bin.jar/' build.xml; \
     sed -i 's/\(<include name="mail.jar"\/>\)/\1\n\t<include name="javax.mail.jar"\/>/' build.xml; \
     sed -i 's/"mail.jar"/"javax.mail.jar"/' src/org/opengts/tools/CheckInstall.java; \
 	sed -i 's/\/\/\*\*\/public/public/' src/org/opengts/war/tools/BufferedHttpServletResponse.java
