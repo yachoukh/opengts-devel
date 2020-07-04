@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:xenial
 
 MAINTAINER mcsaky <mihai.csaky@sysop-consulting.ro>
 
